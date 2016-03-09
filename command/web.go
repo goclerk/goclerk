@@ -1,10 +1,12 @@
 package command
 
 import (
-	"fmt"
 	"github.com/codegangsta/cli"
-	"net/http"
-	"strings"
+	"gopkg.in/macaron.v1"
+
+	"github.com/goclerk/goclerk/routers"
+
+
 )
 
 var Web = cli.Command{
@@ -26,20 +28,18 @@ var Web = cli.Command{
 }
 
 func runWeb(ctx *cli.Context) {
-	var address = strings.Join(
-		[]string{
-			"localhost",
-			":",
-			ctx.String("port"),
-		},
-		"",
-	)
-	http.HandleFunc("/", handler)
-	fmt.Printf("Listening on http://%s", address)
-	http.ListenAndServe(address, nil)
+	m := newMacaron()
+
+	m.Get("/", routers.Home)
+
+	m.Run()
 
 }
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Hi there and welcome to GoClerk")
+// newMacaron initializes Macaron instance.
+func newMacaron() *macaron.Macaron {
+	m := macaron.New()
+	m.Use(macaron.Renderer())
+
+	return m
 }
