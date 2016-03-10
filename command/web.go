@@ -6,7 +6,7 @@ import (
 
 	"github.com/goclerk/goclerk/routers"
 
-
+	"github.com/goclerk/goclerk/modules/middleware"
 )
 
 var Web = cli.Command{
@@ -40,6 +40,7 @@ func runWeb(ctx *cli.Context) {
 func newMacaron() *macaron.Macaron {
 	m := macaron.New()
 	m.Use(macaron.Renderer())
+	m.Use(middleware.Contexter())
 
 	return m
 }
