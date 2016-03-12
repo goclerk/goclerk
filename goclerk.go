@@ -4,7 +4,7 @@ import (
 	"os"
 	"runtime"
 
-	"github.com/goclerk/goclerk/command"
+	"github.com/goclerk/goclerk/cmd"
 
 	"github.com/codegangsta/cli"
 )
@@ -22,7 +22,7 @@ func main() {
 	app.Version = APP_VER
 	app.EnableBashCompletion = true
 	app.Commands = []cli.Command{
-		command.Web,
+		cmd.Web,
 	}
 	app.Flags = append(app.Flags, []cli.Flag{}...)
 	app.Run(os.Args)
