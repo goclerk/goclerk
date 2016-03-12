@@ -11,7 +11,7 @@ var Migrate = cli.Command{
 		{
 			Name:  "version",
 			Usage: "version of the database",
-			Action: getversion,
+			Action: getVersion,
 		},
 		{
 			Name:  "up",
@@ -34,6 +34,6 @@ func downgrade(ctx *cli.Context) {
 	println("Will downgrade the datbase in the future")
 }
 
-func getversion(ctx *cli.Context) {
+func getVersion(ctx *cli.Context) {
 	println("Still version 0")
 }
