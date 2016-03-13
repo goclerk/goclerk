@@ -7,6 +7,7 @@ import (
 	"github.com/goclerk/goclerk/cmd"
 
 	"github.com/codegangsta/cli"
+	"github.com/goclerk/goclerk/modules/setting"
 )
 
 const APP_VER = "0.0.1"
@@ -16,6 +17,8 @@ func init() {
 }
 
 func main() {
+	setting.Connection.Username =  "jonaswouters"
+	//setting.Connection.Database = "goclerk"
 	app := cli.NewApp()
 	app.Name = "GoClerk"
 	app.Usage = "Accounting & More"
