@@ -33,7 +33,7 @@ var Migrate = cli.Command{
 }
 
 func init() {
-	migrations.Register(migrations.CreateDatabase)
+	//migrations.Register(migrations.CreateDatabase)
 }
 
 func upgrade(ctx *cli.Context) {
