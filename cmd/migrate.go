@@ -39,7 +39,7 @@ func init() {
 func upgrade(ctx *cli.Context) {
 	db := pg.Connect(&pg.Options{
 		User:     setting.Connection.Username,
-		//Database: setting.Connection.Database,
+		Database: setting.Connection.Database,
 	})
 
 	oldVersion, newVersion, err := migrations.Run(db, "up")

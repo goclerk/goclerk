@@ -7,13 +7,23 @@ import (
 	"github.com/goclerk/goclerk/models/migrations"
 	"github.com/codegangsta/cli"
 	"gopkg.in/pg.v4"
-	"github.com/goclerk/goclerk/modules/setting"
 )
 
 var Install = cli.Command{
 	Name:   "install",
 	Usage:  "Install goclerk",
 	Action: install,
+	Flags: []cli.Flag{
+		cli.StringFlag{
+			Name:  "username, u",
+			Usage: "Database username with database creation rights",
+
+		},
+		cli.StringFlag{
+			Name:  "password, p",
+			Usage: "Database password for username provided",
+		},
+	},
 }
 
 func init() {
@@ -21,9 +31,13 @@ func init() {
 }
 
 func install(ctx *cli.Context) {
+	if (ctx.String("username") == "") {
+		fmt.Fprintf(os.Stderr, "Username is required\n")
+		os.Exit(1)
+	}
 	db := pg.Connect(&pg.Options{
-		User:     setting.Connection.Username,
-		//Database: setting.Connection.Database,
+		User:     ctx.String("username"),
+		Password: ctx.String("password"),
 	})
 
 	oldVersion, newVersion, err := migrations.Run(db, "up")
