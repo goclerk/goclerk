@@ -2,7 +2,6 @@ package main
 
 import (
 	"os"
-	"runtime"
 
 	"github.com/goclerk/goclerk/cmd"
 
@@ -11,10 +10,6 @@ import (
 )
 
 const APP_VER = "0.0.1"
-
-func init() {
-	runtime.GOMAXPROCS(runtime.NumCPU())
-}
 
 func main() {
 	setting.Connection.Username =  "jonaswouters"
