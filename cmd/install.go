@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/goclerk/goclerk/models/migrations"
+	migration "github.com/goclerk/goclerk/models/migrations"
+	"gopkg.in/go-pg/migrations.v4"
 	"github.com/codegangsta/cli"
 	"gopkg.in/pg.v4"
 )
@@ -27,7 +28,7 @@ var Install = cli.Command{
 }
 
 func init() {
-	migrations.Register(migrations.CreateDatabase)
+	Migrations = append(Migrations, migration.CreateDatabase)
 }
 
 func install(ctx *cli.Context) {
@@ -40,7 +41,7 @@ func install(ctx *cli.Context) {
 		Password: ctx.String("password"),
 	})
 
-	oldVersion, newVersion, err := migrations.Run(db, "up")
+	oldVersion, newVersion, err := migrations.RunMigrations(db, Migrations, "up")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, err.Error()+"\n")
 		os.Exit(1)

@@ -4,10 +4,15 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/goclerk/goclerk/models/migrations"
+	migration "github.com/goclerk/goclerk/models/migrations"
+	"gopkg.in/go-pg/migrations.v4"
 	"github.com/codegangsta/cli"
 	"gopkg.in/pg.v4"
 	"github.com/goclerk/goclerk/modules/setting"
+)
+
+var (
+	Migrations []migrations.Migration
 )
 
 var Migrate = cli.Command{
@@ -33,7 +38,7 @@ var Migrate = cli.Command{
 }
 
 func init() {
-	//migrations.Register(migrations.CreateDatabase)
+	Migrations = append(Migrations, migration.CreateDatabase)
 }
 
 func upgrade(ctx *cli.Context) {
@@ -42,7 +47,7 @@ func upgrade(ctx *cli.Context) {
 		Database: setting.Connection.Database,
 	})
 
-	oldVersion, newVersion, err := migrations.Run(db, "up")
+	oldVersion, newVersion, err := migrations.RunMigrations(db, Migrations, "up")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, err.Error()+"\n")
 		os.Exit(1)
