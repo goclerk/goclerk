@@ -4,10 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	migration "github.com/goclerk/goclerk/models/migrations"
-	"gopkg.in/go-pg/migrations.v4"
 	"github.com/codegangsta/cli"
 	"gopkg.in/pg.v4"
+	"gopkg.in/go-pg/migrations.v4"
 )
 
 var Install = cli.Command{
@@ -18,21 +17,20 @@ var Install = cli.Command{
 		cli.StringFlag{
 			Name:  "username, u",
 			Usage: "Database username with database creation rights",
-
 		},
 		cli.StringFlag{
 			Name:  "password, p",
 			Usage: "Database password for username provided",
 		},
+		cli.BoolFlag{
+			Name:  "uninstall",
+			Usage: "Delete the database",
+		},
 	},
 }
 
-func init() {
-	Migrations = append(Migrations, migration.CreateDatabase)
-}
-
 func install(ctx *cli.Context) {
-	if (ctx.String("username") == "") {
+	if ctx.String("username") == "" {
 		fmt.Fprintf(os.Stderr, "Username is required\n")
 		os.Exit(1)
 	}
@@ -41,15 +39,24 @@ func install(ctx *cli.Context) {
 		Password: ctx.String("password"),
 	})
 
-	oldVersion, newVersion, err := migrations.RunMigrations(db, Migrations, "up")
-	if err != nil {
-		fmt.Fprintf(os.Stderr, err.Error()+"\n")
-		os.Exit(1)
-	}
+	var err error
+	if ctx.Bool("uninstall") {
+		_, err = db.Exec(`DROP DATABASE goclerk`)
 
-	if newVersion != oldVersion {
-		fmt.Printf("migrated from version %d to %d\n", oldVersion, newVersion)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, err.Error()+"\n")
+			os.Exit(1)
+		} else {
+			fmt.Printf("Database goclerk deleted")
+		}
 	} else {
-		fmt.Printf("version is %d\n", oldVersion)
+		_, err = db.Exec(`CREATE DATABASE goclerk`)
+
+		if err != nil {
+			fmt.Fprintf(os.Stderr, err.Error()+"\n")
+			os.Exit(1)
+		} else {
+			fmt.Printf("Database goclerk created")
+		}
 	}
 }
