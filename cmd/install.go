@@ -6,7 +6,6 @@ import (
 
 	"github.com/codegangsta/cli"
 	"gopkg.in/pg.v4"
-	"gopkg.in/go-pg/migrations.v4"
 )
 
 var Install = cli.Command{
