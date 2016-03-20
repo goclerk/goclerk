@@ -61,7 +61,22 @@ func upgrade(ctx *cli.Context) {
 }
 
 func downgrade(ctx *cli.Context) {
-	println("Will downgrade the datbase in the future")
+	db := pg.Connect(&pg.Options{
+		User:     setting.Connection.Username,
+		Database: setting.Connection.Database,
+	})
+
+	oldVersion, newVersion, err := migrations.RunMigrations(db, Migrations, "down")
+	if err != nil {
+		fmt.Fprintf(os.Stderr, err.Error()+"\n")
+		os.Exit(1)
+	}
+
+	if newVersion != oldVersion {
+		fmt.Printf("migrated from version %d to %d\n", oldVersion, newVersion)
+	} else {
+		fmt.Printf("version is %d\n", oldVersion)
+	}
 }
 
 func getVersion(ctx *cli.Context) {
