@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	//migration "github.com/goclerk/goclerk/models/migrations"
+	migration "github.com/goclerk/goclerk/models/migrations"
 	"gopkg.in/go-pg/migrations.v4"
 	"github.com/codegangsta/cli"
 	"gopkg.in/pg.v4"
@@ -38,7 +38,7 @@ var Migrate = cli.Command{
 }
 
 func init() {
-	//Migrations = append(Migrations, migration.CreateDatabase)
+	Migrations = append(Migrations, migration.Initialization)
 }
 
 func upgrade(ctx *cli.Context) {
