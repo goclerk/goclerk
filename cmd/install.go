@@ -6,6 +6,7 @@ import (
 
 	"github.com/codegangsta/cli"
 	"gopkg.in/pg.v4"
+	"gopkg.in/go-pg/migrations.v4"
 )
 
 var Install = cli.Command{
@@ -56,6 +57,19 @@ func install(ctx *cli.Context) {
 			os.Exit(1)
 		} else {
 			fmt.Printf("Database goclerk created")
+
+			db = pg.Connect(&pg.Options{
+				User:     ctx.String("username"),
+				Password: ctx.String("password"),
+				Database: "goclerk",
+			})
+
+			_, _, err = migrations.RunMigrations(db, []migrations.Migration{}, "init")
+
+			if err != nil {
+				fmt.Fprintf(os.Stderr, err.Error() + "\n")
+				os.Exit(1)
+			}
 		}
 	}
 }
