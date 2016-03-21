@@ -20,6 +20,15 @@ var Initialization = migrations.Migration{
 				email CHARACTER VARYING(200) NOT NULL,
 				password CHARACTER VARYING(200) NOT NULL
 			)`,
+			`CREATE TABLE public.customers (
+				id SERIAL NOT NULL,
+				company_name CHARACTER VARYING(200) NOT NULL,
+				first_name CHARACTER VARYING(200) NOT NULL,
+				last_name CHARACTER VARYING(200) NOT NULL,
+				email CHARACTER VARYING(200) NOT NULL,
+				phone_number CHARACTER VARYING(200) NOT NULL,
+				vat_number CHARACTER VARYING(200) NOT NULL
+			)`,
 		}
 		for _, q := range queries {
 			_, err := db.Exec(q)
@@ -34,6 +43,7 @@ var Initialization = migrations.Migration{
 		queries := []string{
 			`DROP TABLE users`,
 			`DROP TABLE organizations`,
+			`DROP TABLE customers`,
 		}
 		for _, q := range queries {
 			_, err := db.Exec(q)
