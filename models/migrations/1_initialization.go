@@ -29,6 +29,13 @@ var Initialization = migrations.Migration{
 				phone_number CHARACTER VARYING(200) NOT NULL,
 				vat_number CHARACTER VARYING(200) NOT NULL
 			)`,
+			`CREATE TABLE public.addresses (
+				id SERIAL NOT NULL,
+				address CHARACTER VARYING(255) NOT NULL,
+				postal_code CHARACTER VARYING(10) NOT NULL,
+				city CHARACTER VARYING(200) NOT NULL,
+				country CHARACTER VARYING(200) NOT NULL,
+			)`,
 		}
 		for _, q := range queries {
 			_, err := db.Exec(q)
@@ -44,6 +51,7 @@ var Initialization = migrations.Migration{
 			`DROP TABLE users`,
 			`DROP TABLE organizations`,
 			`DROP TABLE customers`,
+			`DROP TABLE addresses`,
 		}
 		for _, q := range queries {
 			_, err := db.Exec(q)
