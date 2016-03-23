@@ -12,29 +12,29 @@ var Initialization = migrations.Migration{
 		queries := []string{
 			`CREATE TABLE public.organizations (
 			 	id SERIAL NOT NULL,
-				name CHARACTER VARYING(200) NOT NULL
+				name TEXT NOT NULL
 			)`,
 			`CREATE TABLE public.users (
 				id SERIAL NOT NULL,
-				username CHARACTER VARYING(200) NOT NULL,
-				email CHARACTER VARYING(200) NOT NULL,
-				password CHARACTER VARYING(200) NOT NULL
+				username TEXT NOT NULL,
+				email TEXT NOT NULL,
+				password TEXT NOT NULL
 			)`,
 			`CREATE TABLE public.customers (
 				id SERIAL NOT NULL,
-				company_name CHARACTER VARYING(200) NOT NULL,
-				first_name CHARACTER VARYING(200) NOT NULL,
-				last_name CHARACTER VARYING(200) NOT NULL,
-				email CHARACTER VARYING(200) NOT NULL,
-				phone_number CHARACTER VARYING(200) NOT NULL,
-				vat_number CHARACTER VARYING(200) NOT NULL
+				company_name TEXT NOT NULL,
+				first_name TEXT NOT NULL,
+				last_name TEXT NOT NULL,
+				email TEXT NOT NULL,
+				phone_number TEXT NOT NULL,
+				vat_number TEXT NOT NULL
 			)`,
 			`CREATE TABLE public.addresses (
 				id SERIAL NOT NULL,
-				address CHARACTER VARYING(255) NOT NULL,
-				postal_code CHARACTER VARYING(10) NOT NULL,
-				city CHARACTER VARYING(200) NOT NULL,
-				country CHARACTER VARYING(200) NOT NULL,
+				address TEXT NOT NULL,
+				postal_code TEXT NOT NULL,
+				city TEXT NOT NULL,
+				country TEXT NOT NULL,
 			)`,
 		}
 		for _, q := range queries {
