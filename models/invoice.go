@@ -5,14 +5,13 @@ import (
 )
 
 type Invoice struct {
-	OrganizationId int64
-	Id             int64
+	OrganizationId int
+	Id             int
 	Number         string
-	CustomerId     int64
+	CustomerId     int
 	Customer       *Customer
-	AddressId      int64
-	Address        *InvoiceAddress
-	Amount         int64
+	Address
+	Amount         int
 	CreatedAt      time.Time
 	UpdatedAt      time.Time
 	InvoiceDate    time.Time
@@ -23,17 +22,12 @@ type Invoice struct {
 	Status         string
 }
 
-type InvoiceAddress struct {
-	Id int64
-	Address
-}
-
 type InvoiceRow struct {
-	Id          int64
-	InvoiceId   int64
+	Id          int
+	InvoiceId   int
 	Invoice     *Invoice
-	Quantity    int64
+	Quantity    int
 	Description string
-	Amount      int64
-	Vat         int64
+	Amount      int
+	Vat         int
 }
