@@ -69,7 +69,6 @@ func downgrade(ctx *cli.Context) {
 	oldVersion, newVersion, err := migrations.RunMigrations(db, Migrations, "down")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, err.Error()+"\n")
-		os.Exit(1)
 	}
 
 	if newVersion != oldVersion {
