@@ -21,7 +21,7 @@ func main() {
 	app.EnableBashCompletion = true
 	app.Commands = []cli.Command{
 		cmd.Web,
-		cmd.Install,
+		cmd.Setup,
 		cmd.Migrate,
 	}
 	app.Flags = append(app.Flags, []cli.Flag{}...)
