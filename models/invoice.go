@@ -11,18 +11,18 @@ type Invoice struct {
 	CustomerId     int
 	Customer       *Customer
 	Address
-	Amount         int
-	CreatedAt      time.Time
-	UpdatedAt      time.Time
-	InvoiceDate    time.Time
-	DueDate        time.Time
-	PaidDate       time.Time
-	note           string
-	Rows           []InvoiceRow
-	Status         string
+	Amount      int
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+	InvoiceDate time.Time
+	DueDate     time.Time
+	PaidDate    time.Time
+	note        string
+	Details     []InvoiceDetail
+	Status      string
 }
 
-type InvoiceRow struct {
+type InvoiceDetail struct {
 	Id          int
 	InvoiceId   int
 	Invoice     *Invoice

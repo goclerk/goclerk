@@ -42,7 +42,7 @@ var Initialization = migrations.Migration{
 				city TEXT NOT NULL,
 				country TEXT NOT NULL
 			)`,
-			`CREATE TABLE public.invoice (
+			`CREATE TABLE public.invoices (
 				organization_id INT REFERENCES public.organizations,
 				id SERIAL PRIMARY KEY,
 				number TEXT NOT NULL,
@@ -60,6 +60,15 @@ var Initialization = migrations.Migration{
 				due_date TIMESTAMP,
 				paid_date TIMESTAMP
 			)`,
+			`CREATE TABLE public.invoice_details (
+				invoice_id INT REFERENCES public.invoices,
+				id SERIAL PRIMARY KEY,
+				number TEXT NOT NULL,
+				quantity INT NOT NULL,
+				Description TEXT NOT NULL,
+				amount INT NOT NULL,
+				vat int NOT NULL
+			)`,
 		}
 		for _, q := range queries {
 			_, err := db.Exec(q)
@@ -72,7 +81,8 @@ var Initialization = migrations.Migration{
 	Down: func(db migrations.DB) error {
 		fmt.Println("Downgrading Initialization migration")
 		queries := []string{
-			`DROP TABLE invoice`,
+			`DROP TABLE invoice_details`,
+			`DROP TABLE invoices`,
 			`DROP TABLE customer_addresses`,
 			`DROP TABLE customers`,
 			`DROP TABLE organization_users`,
