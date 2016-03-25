@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"github.com/goclerk/goclerk/modules/middleware"
+	"github.com/jonaswouters/goclerk/modules/middleware"
 )
 
 func Home(ctx *middleware.Context)  {

@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"os"
 
-	migration "github.com/goclerk/goclerk/models/migrations"
+	migration "github.com/jonaswouters/goclerk/models/migrations"
 	"gopkg.in/go-pg/migrations.v4"
 	"github.com/codegangsta/cli"
 	"gopkg.in/pg.v4"
-	"github.com/goclerk/goclerk/modules/setting"
+	"github.com/jonaswouters/goclerk/modules/setting"
 )
 
 var (

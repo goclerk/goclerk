@@ -4,9 +4,9 @@ import (
 	"github.com/codegangsta/cli"
 	"gopkg.in/macaron.v1"
 
-	"github.com/goclerk/goclerk/routers"
+	"github.com/jonaswouters/goclerk/routers"
 
-	"github.com/goclerk/goclerk/modules/middleware"
+	"github.com/jonaswouters/goclerk/modules/middleware"
 )
 
 var Web = cli.Command{

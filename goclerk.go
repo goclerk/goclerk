@@ -3,10 +3,10 @@ package main
 import (
 	"os"
 
-	"github.com/goclerk/goclerk/cmd"
+	"github.com/jonaswouters/goclerk/cmd"
 
 	"github.com/codegangsta/cli"
-	"github.com/goclerk/goclerk/modules/setting"
+	"github.com/jonaswouters/goclerk/modules/setting"
 )
 
 const APP_VER = "0.0.1"
