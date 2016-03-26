@@ -5,4 +5,4 @@ type Address struct {
 	PostalCode string
 	City       string
 	Country    string
-}s
+}
