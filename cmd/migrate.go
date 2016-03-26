@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"os"
 
-	migration "github.com/jonaswouters/goclerk/models/migrations"
-	"gopkg.in/go-pg/migrations.v4"
 	"github.com/codegangsta/cli"
-	"gopkg.in/pg.v4"
+	migration "github.com/jonaswouters/goclerk/models/migrations"
 	"github.com/jonaswouters/goclerk/modules/setting"
+	"gopkg.in/go-pg/migrations.v4"
+	"gopkg.in/pg.v4"
 )
 
 var (
@@ -16,22 +16,22 @@ var (
 )
 
 var Migrate = cli.Command{
-	Name:   "migrate",
-	Usage:  "Install & upgrade database to latest version",
+	Name:  "migrate",
+	Usage: "Install & upgrade database to latest version",
 	Subcommands: []cli.Command{
 		{
-			Name:  "version",
-			Usage: "version of the database",
+			Name:   "version",
+			Usage:  "version of the database",
 			Action: getVersion,
 		},
 		{
-			Name:  "up",
-			Usage: "upgrade the database",
+			Name:   "up",
+			Usage:  "upgrade the database",
 			Action: upgrade,
 		},
 		{
-			Name:  "down",
-			Usage: "downgrade the database",
+			Name:   "down",
+			Usage:  "downgrade the database",
 			Action: downgrade,
 		},
 	},

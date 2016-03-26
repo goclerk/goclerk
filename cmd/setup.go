@@ -5,17 +5,17 @@ import (
 	"os"
 
 	"github.com/codegangsta/cli"
-	"gopkg.in/pg.v4"
 	"gopkg.in/go-pg/migrations.v4"
+	"gopkg.in/pg.v4"
 )
 
 var Setup = cli.Command{
-	Name:   "setup",
-	Usage:  "Goclerk setup tools",
+	Name:  "setup",
+	Usage: "Goclerk setup tools",
 	Subcommands: []cli.Command{
 		{
-			Name:  "install",
-			Usage: "Install goclerk",
+			Name:   "install",
+			Usage:  "Install goclerk",
 			Action: install,
 			Flags: []cli.Flag{
 				cli.StringFlag{
@@ -29,8 +29,8 @@ var Setup = cli.Command{
 			},
 		},
 		{
-			Name:  "reset",
-			Usage: "Reset the database",
+			Name:   "reset",
+			Usage:  "Reset the database",
 			Action: reset,
 			Flags: []cli.Flag{
 				cli.StringFlag{
@@ -44,8 +44,8 @@ var Setup = cli.Command{
 			},
 		},
 		{
-			Name:  "uninstall",
-			Usage: "uninstall goclerk",
+			Name:   "uninstall",
+			Usage:  "uninstall goclerk",
 			Action: uninstall,
 			Flags: []cli.Flag{
 				cli.StringFlag{
@@ -91,7 +91,7 @@ func install(ctx *cli.Context) {
 		_, _, err = migrations.RunMigrations(db, []migrations.Migration{}, "init")
 
 		if err != nil {
-			fmt.Fprintf(os.Stderr, err.Error() + "\n")
+			fmt.Fprintf(os.Stderr, err.Error()+"\n")
 			os.Exit(1)
 		}
 	}
@@ -125,12 +125,11 @@ func reset(ctx *cli.Context) {
 	_, _, err := migrations.RunMigrations(db, []migrations.Migration{}, "init")
 
 	if err != nil {
-		fmt.Fprintf(os.Stderr, err.Error() + "\n")
+		fmt.Fprintf(os.Stderr, err.Error()+"\n")
 		os.Exit(1)
 	}
 
 	fmt.Printf("Database goclerk reset")
-
 
 }
 

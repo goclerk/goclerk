@@ -14,9 +14,7 @@ type Customer struct {
 }
 
 type CustomerAddress struct {
-	Id int64
+	Id         int64
 	CustomerId int64
 	Address
 }
-
-

@@ -12,7 +12,7 @@ import (
 const APP_VER = "0.0.1"
 
 func main() {
-	setting.Connection.Username =  "jonaswouters"
+	setting.Connection.Username = "jonaswouters"
 	setting.Connection.Database = "goclerk"
 	app := cli.NewApp()
 	app.Name = "GoClerk"
