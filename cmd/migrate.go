@@ -41,6 +41,7 @@ func init() {
 	Migrations = append(Migrations, migration.Initialization)
 }
 
+// upgrade will migrate the database to the latest version
 func upgrade(ctx *cli.Context) {
 	db := pg.Connect(&pg.Options{
 		User:     setting.Connection.Username,
@@ -60,6 +61,7 @@ func upgrade(ctx *cli.Context) {
 	}
 }
 
+// downgrade will migrate the database back one version
 func downgrade(ctx *cli.Context) {
 	db := pg.Connect(&pg.Options{
 		User:     setting.Connection.Username,
@@ -78,6 +80,7 @@ func downgrade(ctx *cli.Context) {
 	}
 }
 
+// getVersion prints the current version
 func getVersion(ctx *cli.Context) {
 	println("Still version 0")
 }

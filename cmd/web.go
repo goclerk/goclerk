@@ -27,6 +27,7 @@ var Web = cli.Command{
 	},
 }
 
+// runWeb will serve the website and api
 func runWeb(ctx *cli.Context) {
 	m := newMacaron()
 

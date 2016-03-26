@@ -61,6 +61,7 @@ var Setup = cli.Command{
 	},
 }
 
+// install will create the database and run all migrations
 func install(ctx *cli.Context) {
 	if ctx.String("username") == "" {
 		fmt.Fprintf(os.Stderr, "Username is required\n")
@@ -97,6 +98,7 @@ func install(ctx *cli.Context) {
 
 }
 
+// reset will drop the database schema and run all migrations again
 func reset(ctx *cli.Context) {
 	if ctx.String("username") == "" {
 		fmt.Fprintf(os.Stderr, "Username is required\n")
@@ -132,6 +134,7 @@ func reset(ctx *cli.Context) {
 
 }
 
+// uninstall will drop the database and remove configuration
 func uninstall(ctx *cli.Context) {
 	if ctx.String("username") == "" {
 		fmt.Fprintf(os.Stderr, "Username is required\n")
