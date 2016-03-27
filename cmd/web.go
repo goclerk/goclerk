@@ -5,6 +5,7 @@ import (
 	"gopkg.in/macaron.v1"
 
 	"github.com/jonaswouters/goclerk/routers"
+	apiv1 "github.com/jonaswouters/goclerk/routers/api/v1"
 
 	"github.com/jonaswouters/goclerk/modules/middleware"
 )
@@ -42,6 +43,10 @@ func newMacaron() *macaron.Macaron {
 	m := macaron.New()
 	m.Use(macaron.Renderer())
 	m.Use(middleware.Contexter())
+
+	m.Group("/api", func() {
+		apiv1.RegisterRoutes(m)
+	})
 
 	return m
 }
