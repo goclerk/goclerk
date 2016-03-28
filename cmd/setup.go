@@ -95,7 +95,6 @@ func install(ctx *cli.Context) {
 			os.Exit(1)
 		}
 	}
-
 }
 
 // reset will drop the database schema and run all migrations again
@@ -130,7 +129,6 @@ func reset(ctx *cli.Context) {
 	}
 
 	fmt.Printf("Database goclerk reset")
-
 }
 
 // uninstall will drop the database and remove configuration
@@ -153,5 +151,4 @@ func uninstall(ctx *cli.Context) {
 	} else {
 		fmt.Printf("Database goclerk deleted")
 	}
-
 }
