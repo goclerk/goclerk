@@ -2,12 +2,12 @@ package cmd
 
 import (
 	"github.com/codegangsta/cli"
-	"gopkg.in/macaron.v1"
+	"github.com/codegangsta/negroni"
 
 	"github.com/jonaswouters/goclerk/routers"
 	apiv1 "github.com/jonaswouters/goclerk/routers/api/v1"
 
-	"github.com/jonaswouters/goclerk/modules/middleware"
+	"github.com/gorilla/mux"
 )
 
 var Web = cli.Command{
@@ -30,23 +30,21 @@ var Web = cli.Command{
 
 // runWeb will serve the website and api
 func runWeb(ctx *cli.Context) {
-	m := newMacaron()
+	n := newNegroni()
 
-	m.Get("/", routers.Home)
+	router := mux.NewRouter()
+	router.HandleFunc("/", routers.Home)
+	api := router.PathPrefix("/api").Subrouter()
 
-	m.Run()
+	apiv1.RegisterRoutes(api)
 
+	n.UseHandler(router)
+	n.Run(":4000")
 }
 
-// newMacaron initializes Macaron instance.
-func newMacaron() *macaron.Macaron {
-	m := macaron.New()
-	m.Use(macaron.Renderer())
-	m.Use(middleware.Contexter())
+// newNegroni initializes Negroni instance.
+func newNegroni() *negroni.Negroni {
+	n := negroni.New()
 
-	m.Group("/api", func() {
-		apiv1.RegisterRoutes(m)
-	})
-
-	return m
+	return n
 }

@@ -1,10 +1,10 @@
 package v1
 
 import (
-	"gopkg.in/macaron.v1"
+	"github.com/gorilla/mux"
 )
 
 // RegisterRoutes registers all v1 APIs routes to web application.
-func RegisterRoutes(m *macaron.Macaron) {
+func RegisterRoutes(router *mux.Router) {
 
 }

@@ -1,10 +1,9 @@
 package routers
 
 import (
-	"github.com/jonaswouters/goclerk/modules/middleware"
+	"net/http"
 )
 
-func Home(ctx *middleware.Context) {
-	ctx.Data["name"] = "Clerk"
-	ctx.HTML(200, "hello")
+func Home(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("GoClerk!\n"))
 }
