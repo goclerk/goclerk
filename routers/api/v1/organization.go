@@ -2,18 +2,23 @@ package v1
 
 import (
 	"github.com/jonaswouters/goclerk/models"
-	"net/http"
 	"github.com/unrolled/render"
+	"net/http"
 )
 
 func CreateOrganization(w http.ResponseWriter, r *http.Request) {
-	organization := &models.Organization{
-		Name: "Test",
-	}
 
 	render := render.New(render.Options{
 		IndentJSON: true,
 	})
 
-	render.JSON(w, http.StatusOK, organization)
+	if r.Method == http.MethodPost {
+		organization := &models.Organization{
+			Name: "Test",
+		}
+
+		render.JSON(w, http.StatusOK, organization)
+	} else {
+		render.JSON(w, http.StatusBadRequest, http.StatusText(http.StatusBadRequest))
+	}
 }

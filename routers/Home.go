@@ -1,8 +1,8 @@
 package routers
 
 import (
-	"net/http"
 	"github.com/unrolled/render"
+	"net/http"
 )
 
 func Home(w http.ResponseWriter, r *http.Request) {
