@@ -2,8 +2,8 @@ package v1
 
 import (
 	"github.com/gorilla/mux"
-	"net/http"
 	"github.com/jonaswouters/goclerk/routers/api/v1/organization"
+	"net/http"
 )
 
 var (
