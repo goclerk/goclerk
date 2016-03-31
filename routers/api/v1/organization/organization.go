@@ -14,11 +14,19 @@ func GetOrganization(w http.ResponseWriter, r *http.Request) {
 		IndentJSON: true,
 	})
 
-	organization := &models.Organization{
-		Name: "GetTest",
+	db := pg.Connect(&pg.Options{
+		User:     "jonaswouters",
+		Database: "goclerk",
+	})
+
+	var organizations []models.Organization
+	err := db.Model(&organizations).Select()
+
+	if err != nil {
+		render.JSON(w, http.StatusBadRequest, err)
 	}
 
-	render.JSON(w, http.StatusOK, organization)
+	render.JSON(w, http.StatusOK, organizations)
 }
 
 func CreateOrganization(w http.ResponseWriter, r *http.Request) {
@@ -54,4 +62,3 @@ func CreateOrganization(w http.ResponseWriter, r *http.Request) {
 
 	render.JSON(w, http.StatusOK, organization)
 }
-
