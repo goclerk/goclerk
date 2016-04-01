@@ -3,10 +3,10 @@ package setting
 //import "github.com/go-ini/ini"
 
 var (
-	Connection *Connection
+	Connection connection
 )
 
-type Connection struct {
+type connection struct {
 	Host string
 	Username string
 	Password string
@@ -14,10 +14,12 @@ type Connection struct {
 	Schema string
 }
 
-func (c *Connection) GetConnectionSettings() Connection {
-	return &Connection{
+func GetConnectionSettings() *connection {
+	c := &connection{
 		Host: "localhost",
 		Schema: "public",
 		Database: "goclerk",
 	}
+
+	return c
 }
