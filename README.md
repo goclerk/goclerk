@@ -4,6 +4,27 @@ A simple web app / api for small businesses and freelancers to help with all  th
 
 Work in progress. No release yet
 
+Trello board: https://trello.com/b/rcYSpU9g/goclerk
+
+## Short term progress
+- [x] Basic project
+- [ ] Install & Setup command (create database/configuration)
+  - [x] Create database
+  - [x] Execute migrations
+  - [x] Reset & Uninstall database
+  - [x] Interactive commands 
+  - [ ] Work with presetup database / users
+  - [ ] Create users when working with super postgres user
+  - [ ] Generate config file after install
+- [x] Basic models for Organizations, users, invoices and customers
+- [x] Migrations
+- [x] Create migration for basic models
+- [ ] Api basic functionality
+  - [x] Form processing
+  - [x] Form/Struct validation
+  - [x] Json output
+  - [ ] Authentication
+ 
 ## requirements
 
 PostgreSQL
