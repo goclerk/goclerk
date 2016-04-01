@@ -5,8 +5,21 @@ import (
 	"os"
 
 	"github.com/codegangsta/cli"
+	"github.com/jonaswouters/goclerk/modules/setting"
+	cliui "github.com/mitchellh/cli"
 	"gopkg.in/go-pg/migrations.v4"
 	"gopkg.in/pg.v4"
+)
+
+var (
+	ignorePasswordFlag = cli.StringFlag{
+		Name:  "ignore-password, p",
+		Usage: "Ignore password prompt",
+	}
+	usernameFlag = cli.StringFlag{
+		Name:  "username, u",
+		Usage: "Database username with database creation rights",
+	}
 )
 
 var Setup = cli.Command{
@@ -18,14 +31,8 @@ var Setup = cli.Command{
 			Usage:  "Install goclerk",
 			Action: install,
 			Flags: []cli.Flag{
-				cli.StringFlag{
-					Name:  "username, u",
-					Usage: "Database username with database creation rights",
-				},
-				cli.StringFlag{
-					Name:  "password, p",
-					Usage: "Database password for username provided",
-				},
+				usernameFlag,
+				ignorePasswordFlag,
 			},
 		},
 		{
@@ -33,14 +40,8 @@ var Setup = cli.Command{
 			Usage:  "Reset the database",
 			Action: reset,
 			Flags: []cli.Flag{
-				cli.StringFlag{
-					Name:  "username, u",
-					Usage: "Database username with database creation rights",
-				},
-				cli.StringFlag{
-					Name:  "password, p",
-					Usage: "Database password for username provided",
-				},
+				usernameFlag,
+				ignorePasswordFlag,
 			},
 		},
 		{
@@ -48,14 +49,8 @@ var Setup = cli.Command{
 			Usage:  "uninstall goclerk",
 			Action: uninstall,
 			Flags: []cli.Flag{
-				cli.StringFlag{
-					Name:  "username, u",
-					Usage: "Database username with database creation rights",
-				},
-				cli.StringFlag{
-					Name:  "password, p",
-					Usage: "Database password for username provided",
-				},
+				usernameFlag,
+				ignorePasswordFlag,
 			},
 		},
 	},
@@ -63,32 +58,37 @@ var Setup = cli.Command{
 
 // install will create the database and run all migrations
 func install(ctx *cli.Context) {
-	if ctx.String("username") == "" {
-		fmt.Fprintf(os.Stderr, "Username is required\n")
-		os.Exit(1)
-	}
+	username, password := getUsernameAndPassword(ctx)
+
 	db := pg.Connect(&pg.Options{
-		User:     ctx.String("username"),
-		Password: ctx.String("password"),
+		User:     username,
+		Password: password,
 	})
+
+	ui := &cliui.BasicUi{Writer: os.Stdout, Reader: os.Stdin}
+
+	database, _ := ui.Ask("Database name:")
 
 	var err error
 
-	_, err = db.Exec(`CREATE DATABASE goclerk`)
+	_, err = db.Exec(fmt.Sprintf(`CREATE DATABASE %s`, database))
 
 	if err != nil {
+		db.Close()
 		fmt.Fprintf(os.Stderr, err.Error()+"\n")
 		os.Exit(1)
 	} else {
-		fmt.Printf("Database goclerk created")
+		fmt.Printf("Database %s created", database)
 
 		db = pg.Connect(&pg.Options{
-			User:     ctx.String("username"),
-			Password: ctx.String("password"),
-			Database: "goclerk",
+			User:     username,
+			Password: password,
+			Database: database,
 		})
 
 		_, _, err = migrations.RunMigrations(db, []migrations.Migration{}, "init")
+
+		db.Close()
 
 		if err != nil {
 			fmt.Fprintf(os.Stderr, err.Error()+"\n")
@@ -99,14 +99,13 @@ func install(ctx *cli.Context) {
 
 // reset will drop the database schema and run all migrations again
 func reset(ctx *cli.Context) {
-	if ctx.String("username") == "" {
-		fmt.Fprintf(os.Stderr, "Username is required\n")
-		os.Exit(1)
-	}
+	setting.LoadSettings()
+	username, password := getUsernameAndPassword(ctx)
+
 	db := pg.Connect(&pg.Options{
-		User:     ctx.String("username"),
-		Password: ctx.String("password"),
-		Database: `goclerk`,
+		User:     username,
+		Password: password,
+		Database: setting.Connection.Database,
 	})
 
 	queries := []string{
@@ -116,6 +115,7 @@ func reset(ctx *cli.Context) {
 	for _, q := range queries {
 		_, err := db.Exec(q)
 		if err != nil {
+			db.Close()
 			fmt.Fprintf(os.Stderr, err.Error()+"\n")
 			os.Exit(1)
 		}
@@ -123,32 +123,52 @@ func reset(ctx *cli.Context) {
 
 	_, _, err := migrations.RunMigrations(db, []migrations.Migration{}, "init")
 
+	db.Close()
+
 	if err != nil {
 		fmt.Fprintf(os.Stderr, err.Error()+"\n")
 		os.Exit(1)
 	}
 
-	fmt.Printf("Database goclerk reset")
+	fmt.Printf("Database %s reset", setting.Connection.Database)
 }
 
 // uninstall will drop the database and remove configuration
 func uninstall(ctx *cli.Context) {
-	if ctx.String("username") == "" {
-		fmt.Fprintf(os.Stderr, "Username is required\n")
-		os.Exit(1)
-	}
+	setting.LoadSettings()
+	username, password := getUsernameAndPassword(ctx)
+
 	db := pg.Connect(&pg.Options{
-		User:     ctx.String("username"),
-		Password: ctx.String("password"),
+		User:     username,
+		Password: password,
 	})
 
 	var err error
-	_, err = db.Exec(`DROP DATABASE goclerk`)
+	_, err = db.Exec(fmt.Sprintf(`DROP DATABASE %s`, setting.Connection.Database))
 
+	db.Close()
+	
 	if err != nil {
 		fmt.Fprintf(os.Stderr, err.Error()+"\n")
 		os.Exit(1)
 	} else {
-		fmt.Printf("Database goclerk deleted")
+		fmt.Printf("Database %s deleted", setting.Connection.Database)
 	}
+}
+
+// getUsernameAndPassword get username and password via flags or user input
+func getUsernameAndPassword(ctx *cli.Context) (username string, password string) {
+	ui := &cliui.BasicUi{Writer: os.Stdout, Reader: os.Stdin}
+
+	username = ctx.String("username")
+
+	if ctx.String("username") == "" {
+		username, _ = ui.Ask("What is the username of PostgreSQL with create database permissions?")
+	}
+
+	if ctx.Bool("ignore-password") == false {
+		password, _ = ui.AskSecret(fmt.Sprintf("Password for user %s?", username))
+	}
+
+	return username, password
 }

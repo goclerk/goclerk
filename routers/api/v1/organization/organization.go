@@ -3,10 +3,10 @@ package organization
 import (
 	"github.com/gorilla/schema"
 	"github.com/jonaswouters/goclerk/models"
+	"github.com/jonaswouters/goclerk/modules/setting"
 	"github.com/unrolled/render"
 	"gopkg.in/pg.v4"
 	"net/http"
-	"github.com/jonaswouters/goclerk/modules/setting"
 )
 
 func GetOrganization(w http.ResponseWriter, r *http.Request) {
