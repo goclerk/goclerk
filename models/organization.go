@@ -3,5 +3,5 @@ package models
 type Organization struct {
 	Id    int64
 	Name  string
-	Users []User
+	Users []User `json:",omitempty"`
 }
