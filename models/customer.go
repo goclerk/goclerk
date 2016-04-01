@@ -7,7 +7,7 @@ type Customer struct {
 	FirstName      string
 	LastName       string
 	CompanyName    string
-	Addresses      []CustomerAddress
+	Addresses      []CustomerAddress `json:",omitempty"`
 	Email          string
 	PhoneNumber    string
 	VATNumber      string
