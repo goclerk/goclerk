@@ -1,9 +1,9 @@
 package setting
 
-//import "github.com/go-ini/ini"
+import "github.com/go-ini/ini"
 
 var (
-	Connection connection
+	Connection *connection
 )
 
 type connection struct {
@@ -14,12 +14,14 @@ type connection struct {
 	Schema string
 }
 
-func GetConnectionSettings() *connection {
+func GetConnectionSettings(section *ini.Section) *connection {
 	c := &connection{
 		Host: "localhost",
 		Schema: "public",
 		Database: "goclerk",
 	}
+
+	section.MapTo(c)
 
 	return c
 }

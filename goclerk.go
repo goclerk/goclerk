@@ -6,14 +6,11 @@ import (
 	"github.com/jonaswouters/goclerk/cmd"
 
 	"github.com/codegangsta/cli"
-	"github.com/jonaswouters/goclerk/modules/setting"
 )
 
 const APP_VER = "0.0.1"
 
 func main() {
-	setting.Connection.Username = "jonaswouters"
-	setting.Connection.Database = "goclerk"
 	app := cli.NewApp()
 	app.Name = "GoClerk"
 	app.Usage = "Accounting & More"

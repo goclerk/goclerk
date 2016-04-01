@@ -6,6 +6,7 @@ import (
 	"github.com/unrolled/render"
 	"gopkg.in/pg.v4"
 	"net/http"
+	"github.com/jonaswouters/goclerk/modules/setting"
 )
 
 func GetOrganization(w http.ResponseWriter, r *http.Request) {
@@ -15,8 +16,8 @@ func GetOrganization(w http.ResponseWriter, r *http.Request) {
 	})
 
 	db := pg.Connect(&pg.Options{
-		User:     "jonaswouters",
-		Database: "goclerk",
+		User:     setting.Connection.Username,
+		Database: setting.Connection.Database,
 	})
 
 	var organizations []models.Organization
@@ -51,8 +52,8 @@ func CreateOrganization(w http.ResponseWriter, r *http.Request) {
 	}
 
 	db := pg.Connect(&pg.Options{
-		User:     "jonaswouters",
-		Database: "goclerk",
+		User:     setting.Connection.Username,
+		Database: setting.Connection.Database,
 	})
 
 	err = db.Create(organization)

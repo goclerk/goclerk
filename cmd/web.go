@@ -8,6 +8,10 @@ import (
 	apiv1 "github.com/jonaswouters/goclerk/routers/api/v1"
 
 	"github.com/gorilla/mux"
+	"github.com/go-ini/ini"
+	"fmt"
+	"os"
+	"github.com/jonaswouters/goclerk/modules/setting"
 )
 
 var Web = cli.Command{
@@ -30,6 +34,16 @@ var Web = cli.Command{
 
 // runWeb will serve the website and api
 func runWeb(ctx *cli.Context) {
+	// Settings
+	cfg, err := ini.Load("settings.ini")
+
+	if err != nil {
+		fmt.Fprintf(os.Stderr, err.Error()+"\n")
+		os.Exit(1)
+	}
+
+	setting.Connection = setting.GetConnectionSettings(cfg.Section("database"))
+
 	n := newNegroni()
 
 	router := mux.NewRouter()
