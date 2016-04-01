@@ -147,7 +147,7 @@ func uninstall(ctx *cli.Context) {
 	_, err = db.Exec(fmt.Sprintf(`DROP DATABASE %s`, setting.Connection.Database))
 
 	db.Close()
-	
+
 	if err != nil {
 		fmt.Fprintf(os.Stderr, err.Error()+"\n")
 		os.Exit(1)
@@ -163,11 +163,11 @@ func getUsernameAndPassword(ctx *cli.Context) (username string, password string)
 	username = ctx.String("username")
 
 	if ctx.String("username") == "" {
-		username, _ = ui.Ask("What is the username of PostgreSQL with create database permissions?")
+		username, _ = ui.Ask("Username with PostgreSQL super access: ")
 	}
 
 	if ctx.Bool("ignore-password") == false {
-		password, _ = ui.AskSecret(fmt.Sprintf("Password for user %s?", username))
+		password, _ = ui.AskSecret(fmt.Sprintf("Password for user %s: ", username))
 	}
 
 	return username, password
