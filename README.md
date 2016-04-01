@@ -12,18 +12,18 @@ PostgreSQL
 
 ### List of commands
 
-Install the database (Will be interactive later on)
+Install the database
 ```bash
-./goclerk setup install -u <username> -p <password>
+./goclerk setup install
 ```
 
 Uninstall the database
 ```bash
-./goclerk setup uninstall -u <username> -p <password>
+./goclerk setup uninstall
 ```
 Reset the database (for development or testing)
 ```bash
-./goclerk setup reset -u <username> -p <password>
+./goclerk setup reset
 ```
 
 Run migrations
