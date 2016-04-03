@@ -95,6 +95,15 @@ func install(ctx *cli.Context) {
 			os.Exit(1)
 		}
 	}
+
+	// Save settings
+	setting.Connection = &setting.ConnectionDetails{
+		Username: username,
+		Password: password,
+		Database: database,
+	}
+
+	setting.SaveSettings()
 }
 
 // reset will drop the database schema and run all migrations again

@@ -7,10 +7,14 @@ import (
 )
 
 var (
-	Connection *connection
+	Connection *ConnectionDetails
 )
 
-type connection struct {
+type settings struct {
+	*ConnectionDetails
+}
+
+type ConnectionDetails struct {
 	Host     string
 	Username string
 	Password string
@@ -18,8 +22,8 @@ type connection struct {
 	Schema   string
 }
 
-func GetConnectionSettings(section *ini.Section) *connection {
-	c := &connection{
+func GetConnectionSettings(section *ini.Section) *ConnectionDetails {
+	c := &ConnectionDetails{
 		Host:     "localhost",
 		Schema:   "public",
 		Database: "goclerk",
@@ -39,4 +43,19 @@ func LoadSettings() {
 	}
 
 	Connection = GetConnectionSettings(cfg.Section("database"))
+}
+
+func SaveSettings() {
+	s := &settings{
+		Connection,
+	}
+	cfg := ini.Empty()
+	err := ini.ReflectFrom(cfg, s)
+
+	if err != nil {
+		fmt.Fprintf(os.Stderr, err.Error()+"\n")
+		os.Exit(1)
+	}
+
+	cfg.SaveTo("settings.ini")
 }
