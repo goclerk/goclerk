@@ -15,7 +15,7 @@ Trello board: https://trello.com/b/rcYSpU9g/goclerk
   - [x] Interactive commands 
   - [ ] Work with presetup database / users
   - [ ] Create users when working with super postgres user
-  - [ ] Generate config file after install
+  - [x] Generate config file after install
 - [x] Basic models for Organizations, users, invoices and customers
 - [x] Migrations
 - [x] Create migration for basic models
