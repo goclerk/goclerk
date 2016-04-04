@@ -42,7 +42,7 @@ func runWeb(ctx *cli.Context) {
 		os.Exit(1)
 	}
 
-	setting.Connection = setting.GetConnectionSettings(cfg.Section("database"))
+	setting.LoadSettings()
 
 	n := newNegroni()
 
