@@ -34,14 +34,7 @@ var Web = cli.Command{
 
 // runWeb will serve the website and api
 func runWeb(ctx *cli.Context) {
-	// Settings
-	cfg, err := ini.Load("settings.ini")
-
-	if err != nil {
-		fmt.Fprintf(os.Stderr, err.Error()+"\n")
-		os.Exit(1)
-	}
-
+	// Load settings
 	setting.LoadSettings()
 
 	n := newNegroni()
