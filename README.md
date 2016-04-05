@@ -19,6 +19,7 @@ Trello board: https://trello.com/b/rcYSpU9g/goclerk
 - [x] Basic models for Organizations, users, invoices and customers
 - [x] Migrations
 - [x] Create migration for basic models
+- [ ] Decide on database tech (Postgres, BoltDB+Bleve, sqlite)
 - [ ] Api basic functionality
   - [x] Form processing
   - [x] Form/Struct validation
