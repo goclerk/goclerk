@@ -7,11 +7,8 @@ import (
 	"github.com/jonaswouters/goclerk/routers"
 	apiv1 "github.com/jonaswouters/goclerk/routers/api/v1"
 
-	"fmt"
-	"github.com/go-ini/ini"
 	"github.com/gorilla/mux"
 	"github.com/jonaswouters/goclerk/modules/setting"
-	"os"
 )
 
 var Web = cli.Command{
