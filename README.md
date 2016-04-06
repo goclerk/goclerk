@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/jonaswouters/goclerk.svg?branch=master)](https://travis-ci.org/jonaswouters/goclerk)
+[![Build Status](https://travis-ci.org/jonaswouters/goclerk.svg?branch=master)](https://travis-ci.org/jonaswouters/goclerk) [![Go Report Card](https://goreportcard.com/badge/github.com/jonaswouters/goclerk)](https://goreportcard.com/report/github.com/jonaswouters/goclerk)
 # goclerk
 
 A simple web app / api for small businesses and freelancers to help with all  the grunt work like document management, payment followup, time tracking, invoicing and more. 
