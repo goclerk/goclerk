@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/jonaswouters/goclerk.svg?branch=master)](https://travis-ci.org/jonaswouters/goclerk) [![Go Report Card](https://goreportcard.com/badge/github.com/jonaswouters/goclerk)](https://goreportcard.com/report/github.com/jonaswouters/goclerk)
+[![License][License-Image]][License-URL] [![ReportCard][ReportCard-Image]][ReportCard-URL] [![Build][Build-Status-Image]][Build-Status-URL] [![Release][Release-Image]][Release-URL]
 # goclerk
 
 A simple web app / api for small businesses and freelancers to help with all  the grunt work like document management, payment followup, time tracking, invoicing and more. 
@@ -60,3 +60,12 @@ Run the app
 ```bash
 ./goclerk web
 ```
+
+[License-URL]: https://github.com/jonaswouters/goclerk/blob/master/LICENSE
+[License-Image]: https://img.shields.io/github/license/jonaswouters/goclerk.svg
+[ReportCard-URL]: https://goreportcard.com/report/jonaswouters/goclerk
+[ReportCard-Image]: https://goreportcard.com/badge/jonaswouters/goclerk
+[Build-Status-URL]: https://travis-ci.org/jonaswouters/goclerk
+[Build-Status-Image]: https://travis-ci.org/jonaswouters/goclerk.svg?branch=master
+[Release-URL]: https://github.com/jonaswouters/goclerk/releases
+[Release-Image]: https://img.shields.io/github/release/jonaswouters/goclerk.svg
