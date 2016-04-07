@@ -1,4 +1,4 @@
-// package setting manage settings for the app
+// Package setting manage settings for the app
 package setting
 
 import (
@@ -16,7 +16,7 @@ type settings struct {
 	*ConnectionDetails
 }
 
-// type ConnectionDetails to store connection details
+// ConnectionDetails type to store connection details
 type ConnectionDetails struct {
 	Host     string
 	Username string
