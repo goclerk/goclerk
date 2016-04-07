@@ -1,3 +1,4 @@
+// package setting manage settings for the app
 package setting
 
 import (
@@ -7,6 +8,7 @@ import (
 )
 
 var (
+	// Connection contains database details
 	Connection *ConnectionDetails
 )
 
@@ -14,6 +16,7 @@ type settings struct {
 	*ConnectionDetails
 }
 
+// type ConnectionDetails to store connection details
 type ConnectionDetails struct {
 	Host     string
 	Username string
@@ -22,6 +25,7 @@ type ConnectionDetails struct {
 	Schema   string
 }
 
+// GetConnectionSettings to map connection settings from ini section
 func GetConnectionSettings(section *ini.Section) *ConnectionDetails {
 	c := &ConnectionDetails{
 		Host:     "localhost",
@@ -34,6 +38,7 @@ func GetConnectionSettings(section *ini.Section) *ConnectionDetails {
 	return c
 }
 
+// LoadSettings load all the settings from the ini file
 func LoadSettings() {
 	cfg, err := ini.Load("settings.ini")
 
@@ -45,6 +50,7 @@ func LoadSettings() {
 	Connection = GetConnectionSettings(cfg.Section("database"))
 }
 
+// SaveSettings Save the current settings to the ini file
 func SaveSettings() {
 	s := &settings{
 		Connection,
