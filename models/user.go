@@ -1,10 +1,10 @@
 package models
 
+// User user to authenticate with
 type User struct {
-	OrganizationId int64
-	Organization   *Organization
-	Id             int64
-	Username       string
-	Email          string
-	Password       string
+	Model
+	OrganizationIDs []int64
+	Username        string
+	Email           string
+	Password        string
 }

@@ -4,12 +4,13 @@ import (
 	"time"
 )
 
+// Invoice Invoice model
 type Invoice struct {
-	OrganizationId int
-	Id             int
+	Model
+	OrganizationID int64
 	Number         string
-	CustomerId     int
-	Customer       *Customer
+	ContactID      int64
+	Contact        *Contact
 	Address
 	Amount      int
 	CreatedAt   time.Time
@@ -22,9 +23,10 @@ type Invoice struct {
 	Status      string
 }
 
+// InvoiceDetail detail line of an Invoice
 type InvoiceDetail struct {
-	Id          int
-	InvoiceId   int
+	ID          int64
+	InvoiceID   int64
 	Invoice     *Invoice
 	Quantity    int
 	Description string
