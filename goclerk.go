@@ -8,13 +8,14 @@ import (
 	"github.com/codegangsta/cli"
 )
 
-const APP_VER = "0.0.1"
+// AppVersion Version of the ap
+const AppVersion = "0.0.1"
 
 func main() {
 	app := cli.NewApp()
 	app.Name = "GoClerk"
 	app.Usage = "Accounting & More"
-	app.Version = APP_VER
+	app.Version = AppVersion
 	app.EnableBashCompletion = true
 	app.Commands = []cli.Command{
 		cmd.Web,

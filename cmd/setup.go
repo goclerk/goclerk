@@ -9,6 +9,7 @@ import (
 	cliui "github.com/mitchellh/cli"
 )
 
+// Setup command to install the configuration and reset the database
 var Setup = cli.Command{
 	Name:  "setup",
 	Usage: "Goclerk setup tools",

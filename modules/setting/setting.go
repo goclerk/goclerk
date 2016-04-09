@@ -11,6 +11,8 @@ import (
 var (
 	// Settings contains all the settings
 	Settings *settings
+    
+    // Renderer is the output renderer being used
 	Renderer *render.Render
 )
 

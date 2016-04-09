@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	organizationPath string = "/organization/"
+	organizationPath = "/organization/"
 )
 
 // RegisterRoutes registers all v1 APIs routes to web application.
