@@ -9,27 +9,20 @@ Trello board: https://trello.com/b/rcYSpU9g/goclerk
 
 ## Short term progress
 - [x] Basic project
-- [ ] Install & Setup command (create database/configuration)
-  - [x] Create database
-  - [x] Execute migrations
+- [ ] Install & Setup command (create configuration)
   - [x] Reset & Uninstall database
   - [x] Interactive commands 
   - [ ] Work with presetup database / users
   - [ ] Create users when working with super postgres user
   - [x] Generate config file after install
 - [x] Basic models for Organizations, users, invoices and customers
-- [x] Migrations
-- [x] Create migration for basic models
-- [ ] Decide on database tech (Postgres, BoltDB+Bleve, sqlite)
+- [x] Decide on database tech -> BoltDB+Bleve
 - [ ] Api basic functionality
   - [x] Form processing
   - [x] Form/Struct validation
   - [x] Json output
   - [ ] Authentication
- 
-## requirements
 
-PostgreSQL
 
 ## Commands
 
@@ -40,20 +33,9 @@ Install the database
 ./goclerk setup install
 ```
 
-Uninstall the database
-```bash
-./goclerk setup uninstall
-```
 Reset the database (for development or testing)
 ```bash
 ./goclerk setup reset
-```
-
-Run migrations
-```bash
-./goclerk migrate up
-./goclerk migrate down
-./goclerk migrate version
 ```
 
 Run the app
