@@ -1,18 +1,19 @@
 package models
 
 import (
+	"github.com/siddontang/go/bson"
 	"time"
 )
 
 // Invoice Invoice model
 type Invoice struct {
 	Model          `storm:"inline"`
-	OrganizationID int64 `storm:"index"`
+	OrganizationID bson.ObjectId `storm:"index"`
 	Number         string
-	ContactID      int64 `storm:"index"`
+	ContactID      bson.ObjectId `storm:"index"`
 	Contact        *Contact
 	Address
-	Amount      int
+	Amount      int64
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 	InvoiceDate time.Time `storm:"index"`
@@ -25,9 +26,6 @@ type Invoice struct {
 
 // InvoiceDetail detail line of an Invoice
 type InvoiceDetail struct {
-	ID          int64
-	InvoiceID   int64
-	Invoice     *Invoice
 	Quantity    int
 	Description string
 	Amount      int

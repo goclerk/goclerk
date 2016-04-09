@@ -1,9 +1,11 @@
 package models
 
+import "github.com/siddontang/go/bson"
+
 // Contact organization contact
 type Contact struct {
 	Model          `storm:"inline"`
-	OrganizationID int64 `storm:"index"`
+	OrganizationID bson.ObjectId `storm:"index"`
 	DisplayName    string
 	FirstName      string
 	LastName       string
@@ -17,6 +19,6 @@ type Contact struct {
 // ContactAddress address of a Customer
 type ContactAddress struct {
 	Model     `storm:"inline"`
-	ContactID int64 `storm:"index"`
+	ContactID bson.ObjectId `storm:"index"`
 	Address
 }
