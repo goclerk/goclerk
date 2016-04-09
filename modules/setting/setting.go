@@ -4,59 +4,45 @@ package setting
 import (
 	"fmt"
 	"github.com/go-ini/ini"
+	"github.com/unrolled/render"
 	"os"
 )
 
 var (
-	// Connection contains database details
-	Connection *ConnectionDetails
+	// Settings contains all the settings
+	Settings *settings
+	Renderer *render.Render
 )
 
 type settings struct {
-	*ConnectionDetails
-}
-
-// ConnectionDetails type to store connection details
-type ConnectionDetails struct {
-	Host     string
-	Username string
-	Password string
+	// Database is the database filename
 	Database string
-	Schema   string
-}
-
-// GetConnectionSettings to map connection settings from ini section
-func GetConnectionSettings(section *ini.Section) *ConnectionDetails {
-	c := &ConnectionDetails{
-		Host:     "localhost",
-		Schema:   "public",
-		Database: "goclerk",
-	}
-
-	section.MapTo(c)
-
-	return c
 }
 
 // LoadSettings load all the settings from the ini file
 func LoadSettings() {
-	cfg, err := ini.Load("settings.ini")
+	s := &settings{
+		Database: "database.db",
+	}
+
+	Renderer = render.New(render.Options{IndentJSON: true})
+
+	cfg, err := ini.LooseLoad("settings.ini")
+
+	cfg.MapTo(s)
+
+	Settings = s
 
 	if err != nil {
 		fmt.Fprintf(os.Stderr, err.Error()+"\n")
 		os.Exit(1)
 	}
-
-	Connection = GetConnectionSettings(cfg.Section("database"))
 }
 
 // SaveSettings Save the current settings to the ini file
 func SaveSettings() {
-	s := &settings{
-		Connection,
-	}
 	cfg := ini.Empty()
-	err := ini.ReflectFrom(cfg, s)
+	err := ini.ReflectFrom(cfg, Settings)
 
 	if err != nil {
 		fmt.Fprintf(os.Stderr, err.Error()+"\n")

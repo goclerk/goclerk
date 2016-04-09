@@ -9,9 +9,9 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/jonaswouters/goclerk/modules/setting"
-	"github.com/jonaswouters/goclerk/modules/store"
 )
 
+// Web is the web interface and api command
 var Web = cli.Command{
 	Name:   "web",
 	Usage:  "Start GoClerk web server",
@@ -34,8 +34,6 @@ var Web = cli.Command{
 func runWeb(ctx *cli.Context) {
 	// Load settings
 	setting.LoadSettings()
-
-	store.InitializeStore()
 
 	n := newNegroni()
 

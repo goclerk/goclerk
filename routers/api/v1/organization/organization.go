@@ -1,43 +1,37 @@
 package organization
 
 import (
-	"fmt"
 	"github.com/gorilla/schema"
 	"github.com/jonaswouters/goclerk/models"
+	"github.com/jonaswouters/goclerk/modules/setting"
 	"github.com/jonaswouters/goclerk/modules/store"
+	"github.com/jonaswouters/goclerk/routers/api"
 	"github.com/siddontang/go/bson"
-	"github.com/unrolled/render"
 	"net/http"
 )
 
-func GetOrganization(w http.ResponseWriter, r *http.Request) {
-
-	render := render.New(render.Options{
-		IndentJSON: true,
-	})
+// GetOrganizations get all organizations
+func GetOrganizations(w http.ResponseWriter, r *http.Request) {
 
 	var organizations []models.Organization
-	err := store.DB.All(&organizations)
+	err := store.GetDB().All(&organizations)
 
 	if err != nil {
-		render.JSON(w, http.StatusBadRequest, err)
-		fmt.Println(err)
+		setting.Renderer.JSON(w, http.StatusBadRequest, err)
+
 		return
 	}
 
-	render.JSON(w, http.StatusOK, organizations)
+	setting.Renderer.JSON(w, http.StatusOK, organizations)
 }
 
+// CreateOrganization create an organization
 func CreateOrganization(w http.ResponseWriter, r *http.Request) {
-
-	render := render.New(render.Options{
-		IndentJSON: true,
-	})
 
 	err := r.ParseForm()
 
 	if err != nil {
-		render.JSON(w, http.StatusBadRequest, err)
+		setting.Renderer.JSON(w, http.StatusBadRequest, err)
 	}
 
 	organization := new(models.Organization)
@@ -47,18 +41,18 @@ func CreateOrganization(w http.ResponseWriter, r *http.Request) {
 	err = decoder.Decode(organization, r.PostForm)
 
 	if err != nil {
-		render.JSON(w, http.StatusBadRequest, err)
-		fmt.Println(err)
+		api.RenderError(w, http.StatusBadRequest, err)
+
 		return
 	}
 
-	err = store.DB.Save(organization)
+	err = store.GetDB().Save(organization)
 
 	if err != nil {
-		render.JSON(w, http.StatusBadRequest, err)
-		fmt.Println(err)
+		api.RenderError(w, http.StatusBadRequest, err)
+
 		return
 	}
 
-	render.JSON(w, http.StatusOK, organization)
+	setting.Renderer.JSON(w, http.StatusOK, organization)
 }

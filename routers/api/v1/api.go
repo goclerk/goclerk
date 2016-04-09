@@ -13,6 +13,6 @@ var (
 // RegisterRoutes registers all v1 APIs routes to web application.
 func RegisterRoutes(router *mux.Router) {
 	// Organization endpoints
-	router.HandleFunc(organizationPath, organization.GetOrganization).Methods(http.MethodGet)
+	router.HandleFunc(organizationPath, organization.GetOrganizations).Methods(http.MethodGet)
 	router.HandleFunc(organizationPath, organization.CreateOrganization).Methods(http.MethodPost)
 }
