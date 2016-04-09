@@ -9,6 +9,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/jonaswouters/goclerk/modules/setting"
+	"github.com/jonaswouters/goclerk/modules/store"
 )
 
 var Web = cli.Command{
@@ -33,6 +34,8 @@ var Web = cli.Command{
 func runWeb(ctx *cli.Context) {
 	// Load settings
 	setting.LoadSettings()
+
+	store.InitializeStore()
 
 	n := newNegroni()
 

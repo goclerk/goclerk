@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"github.com/codegangsta/cli"
-	migration "github.com/jonaswouters/goclerk/models/migrations"
 	"github.com/jonaswouters/goclerk/modules/setting"
 	"gopkg.in/go-pg/migrations.v4"
 	"gopkg.in/pg.v4"
@@ -35,10 +34,6 @@ var Migrate = cli.Command{
 			Action: downgrade,
 		},
 	},
-}
-
-func init() {
-	Migrations = append(Migrations, migration.Initialization)
 }
 
 // upgrade will migrate the database to the latest version

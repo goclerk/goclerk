@@ -1,10 +1,10 @@
 package models
 
+// User user to authenticate with
 type User struct {
-	OrganizationId int64
-	Organization   *Organization
-	Id             int64
-	Username       string
-	Email          string
-	Password       string
+	Model           `storm:"inline"`
+	OrganizationIDs []int64
+	Username        string `storm:"unique"`
+	Email           string
+	Password        string
 }

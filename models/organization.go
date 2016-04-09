@@ -1,7 +1,10 @@
 package models
 
+import ()
+
+// Organization is the overarching entity over all the data
 type Organization struct {
-	Id    int64
-	Name  string
+	Model `storm:"inline"`
+	Name  string `storm:"unique"`
 	Users []User `json:",omitempty"`
 }
