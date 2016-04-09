@@ -1,11 +1,12 @@
 package organization
 
 import (
+	"fmt"
 	"github.com/gorilla/schema"
 	"github.com/jonaswouters/goclerk/models"
-	"github.com/jonaswouters/goclerk/modules/setting"
+	"github.com/jonaswouters/goclerk/modules/store"
+	"github.com/siddontang/go/bson"
 	"github.com/unrolled/render"
-	"gopkg.in/pg.v4"
 	"net/http"
 )
 
@@ -15,16 +16,13 @@ func GetOrganization(w http.ResponseWriter, r *http.Request) {
 		IndentJSON: true,
 	})
 
-	db := pg.Connect(&pg.Options{
-		User:     setting.Connection.Username,
-		Database: setting.Connection.Database,
-	})
-
 	var organizations []models.Organization
-	err := db.Model(&organizations).Select()
+	err := store.DB.All(&organizations)
 
 	if err != nil {
 		render.JSON(w, http.StatusBadRequest, err)
+		fmt.Println(err)
+		return
 	}
 
 	render.JSON(w, http.StatusOK, organizations)
@@ -43,22 +41,23 @@ func CreateOrganization(w http.ResponseWriter, r *http.Request) {
 	}
 
 	organization := new(models.Organization)
+	organization.ID = bson.NewObjectId()
 
 	decoder := schema.NewDecoder()
 	err = decoder.Decode(organization, r.PostForm)
 
 	if err != nil {
 		render.JSON(w, http.StatusBadRequest, err)
+		fmt.Println(err)
+		return
 	}
 
-	db := pg.Connect(&pg.Options{
-		User:     setting.Connection.Username,
-		Database: setting.Connection.Database,
-	})
+	err = store.DB.Save(organization)
 
-	err = db.Create(organization)
 	if err != nil {
 		render.JSON(w, http.StatusBadRequest, err)
+		fmt.Println(err)
+		return
 	}
 
 	render.JSON(w, http.StatusOK, organization)

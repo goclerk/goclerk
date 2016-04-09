@@ -6,17 +6,17 @@ import (
 
 // Invoice Invoice model
 type Invoice struct {
-	Model
-	OrganizationID int64
+	Model          `storm:"inline"`
+	OrganizationID int64 `storm:"index"`
 	Number         string
-	ContactID      int64
+	ContactID      int64 `storm:"index"`
 	Contact        *Contact
 	Address
 	Amount      int
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
-	InvoiceDate time.Time
-	DueDate     time.Time
+	InvoiceDate time.Time `storm:"index"`
+	DueDate     time.Time `storm:"index"`
 	PaidDate    time.Time
 	note        string
 	Details     []InvoiceDetail

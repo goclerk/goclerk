@@ -2,8 +2,8 @@ package models
 
 // Contact organization contact
 type Contact struct {
-	OrganizationID int64
-	ID             int64
+	Model          `storm:"inline"`
+	OrganizationID int64 `storm:"index"`
 	DisplayName    string
 	FirstName      string
 	LastName       string
@@ -16,7 +16,7 @@ type Contact struct {
 
 // ContactAddress address of a Customer
 type ContactAddress struct {
-	ID        int64
-	ContactID int64
+	Model     `storm:"inline"`
+	ContactID int64 `storm:"index"`
 	Address
 }
