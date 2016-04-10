@@ -12,8 +12,7 @@ Trello board: https://trello.com/b/rcYSpU9g/goclerk
 - [ ] Install & Setup command (create configuration)
   - [x] Reset & Uninstall database
   - [x] Interactive commands 
-  - [ ] Work with presetup database / users
-  - [ ] Create users when working with super postgres user
+  - [ ] Create a default user and organization
   - [x] Generate config file after install
 - [x] Basic models for Organizations, users, invoices and customers
 - [x] Decide on database tech -> BoltDB+Bleve
@@ -22,6 +21,7 @@ Trello board: https://trello.com/b/rcYSpU9g/goclerk
   - [x] Form/Struct validation
   - [x] Json output
   - [ ] Authentication
+  - [ ] post & validate json instead of form
 
 
 ## Commands
