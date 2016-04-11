@@ -9,10 +9,10 @@ Trello board: https://trello.com/b/rcYSpU9g/goclerk
 
 ## Short term progress
 - [x] Basic project
-- [ ] Install & Setup command (create configuration)
+- [x] Install & Setup command (create configuration)
   - [x] Reset & Uninstall database
   - [x] Interactive commands 
-  - [ ] Create a default user and organization
+  - [x] Create a default user and organization
   - [x] Generate config file after install
 - [x] Basic models for Organizations, users, invoices and customers
 - [x] Decide on database tech -> BoltDB+Bleve
