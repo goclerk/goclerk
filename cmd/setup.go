@@ -5,11 +5,11 @@ import (
 	"os"
 
 	"github.com/codegangsta/cli"
-	"github.com/jonaswouters/goclerk/modules/setting"
-	cliui "github.com/mitchellh/cli"
 	"github.com/jonaswouters/goclerk/models"
-	"github.com/siddontang/go/bson"
+	"github.com/jonaswouters/goclerk/modules/setting"
 	"github.com/jonaswouters/goclerk/modules/store"
+	cliui "github.com/mitchellh/cli"
+	"github.com/siddontang/go/bson"
 )
 
 // Setup command to install the configuration and reset the database
