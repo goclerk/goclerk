@@ -8,5 +8,5 @@ type User struct {
 	OrganizationIDs []bson.ObjectId
 	Username        string `storm:"unique"`
 	Email           string
-	Password        string
+	Password        string `json:"-"`
 }
