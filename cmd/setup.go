@@ -87,6 +87,15 @@ func install(ctx *cli.Context) {
 		return
 	}
 
+	organization.Users = []models.User{*user}
+	err = store.GetDB().Save(organization)
+
+	if err != nil {
+		fmt.Printf("Failed to add user %s to organization %s: %s", username, organizationName, err.Error())
+
+		return
+	}
+
 	// Save settings
 	setting.SaveSettings()
 }

@@ -16,8 +16,17 @@ func GetOrganizations(w http.ResponseWriter, r *http.Request) {
 	var organizations []models.Organization
 	err := store.GetDB().All(&organizations)
 
+	/*for i := 0; i < len(organizations); i++ {
+		organization := &organizations[i]
+
+		var users []models.User;
+		err = store.GetDB().Find("OrganizationIDs", organization.ID, &users)
+		organization.Users = users;
+	}*/
+
+
 	if err != nil {
-		setting.Renderer.JSON(w, http.StatusBadRequest, err)
+		api.RenderError(w, http.StatusBadRequest, err)
 
 		return
 	}
