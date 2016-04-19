@@ -16,14 +16,20 @@ func GetOrganizations(w http.ResponseWriter, r *http.Request) {
 	var organizations []models.Organization
 	err := store.GetDB().All(&organizations)
 
-	/*for i := 0; i < len(organizations); i++ {
+	for i := 0; i < len(organizations); i++ {
 		organization := &organizations[i]
 
-		var users []models.User;
-		err = store.GetDB().Find("OrganizationIDs", organization.ID, &users)
-		organization.Users = users;
-	}*/
+		var organizationUsers []models.OrganizationUsers;
+		err = store.GetDB().Find("OrganizationId", organization.ID, &organizationUsers)
 
+		for i := 0; i < len(organizationUsers); i++ {
+			organizationUser := &organizationUsers[i]
+			var user models.User;
+			err = store.GetDB().One("ID", organizationUser.UserID, &user)
+
+			organization.Users = append(organization.Users, user);
+		}
+	}
 
 	if err != nil {
 		api.RenderError(w, http.StatusBadRequest, err)

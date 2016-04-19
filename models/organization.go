@@ -6,6 +6,7 @@ import "github.com/siddontang/go/bson"
 type Organization struct {
 	Model `storm:"inline"`
 	Name  string `storm:"unique"`
+	Users []User `json:",omitempty"`
 }
 
 // OrganizationUsers links users to organizations
