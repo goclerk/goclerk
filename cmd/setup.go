@@ -78,7 +78,6 @@ func install(ctx *cli.Context) {
 	user.ID = bson.NewObjectId()
 	user.Username = username
 	user.Password = password
-	user.OrganizationIDs = []bson.ObjectId{organization.ID}
 	err = store.GetDB().Save(user)
 
 	if err != nil {
@@ -87,8 +86,11 @@ func install(ctx *cli.Context) {
 		return
 	}
 
-	organization.Users = []models.User{*user}
-	err = store.GetDB().Save(organization)
+	organizationUser := new(models.OrganizationUsers)
+	organizationUser.ID = bson.NewObjectId()
+	organizationUser.OrganizationId = organization.ID
+	organizationUser.UserID = user.ID
+	err = store.GetDB().Save(organizationUser)
 
 	if err != nil {
 		fmt.Printf("Failed to add user %s to organization %s: %s", username, organizationName, err.Error())
