@@ -16,6 +16,8 @@ Trello board: https://trello.com/b/rcYSpU9g/goclerk
   - [x] Generate config file after install
 - [x] Basic models for Organizations, users, invoices and customers
 - [x] Decide on database tech -> BoltDB+Bleve
+- [ ] Basic web interface 
+  - [ ] Authentication
 - [ ] Api basic functionality
   - [x] Form processing
   - [x] Form/Struct validation
