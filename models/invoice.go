@@ -13,6 +13,7 @@ type Invoice struct {
 	ContactID      bson.ObjectId `storm:"index"`
 	Contact        *Contact
 	Address
+	VATNumber   string
 	Amount      int64
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
