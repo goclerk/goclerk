@@ -14,16 +14,19 @@ Trello board: https://trello.com/b/rcYSpU9g/goclerk
   - [x] Interactive commands 
   - [x] Create a default user and organization
   - [x] Generate config file after install
+- [ ] Import and export commands for getting data out of BoltDB
 - [x] Basic models for Organizations, users, invoices and customers
 - [x] Decide on database tech -> BoltDB+Bleve
+  - [ ] Check out if Cayley can provide additional value
 - [ ] Basic web interface 
-  - [ ] Authentication
+  - [ ] Authentication (authboss)
 - [ ] Api basic functionality
   - [x] Form processing
   - [x] Form/Struct validation
   - [x] Json output
   - [ ] Authentication
   - [ ] post & validate json instead of form
+  - [ ] Remove api version from path
 
 
 ## Commands
