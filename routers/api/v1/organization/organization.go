@@ -19,15 +19,15 @@ func GetOrganizations(w http.ResponseWriter, r *http.Request) {
 	for i := 0; i < len(organizations); i++ {
 		organization := &organizations[i]
 
-		var organizationUsers []models.OrganizationUsers;
+		var organizationUsers []models.OrganizationUsers
 		err = store.GetDB().Find("OrganizationId", organization.ID, &organizationUsers)
 
 		for i := 0; i < len(organizationUsers); i++ {
 			organizationUser := &organizationUsers[i]
-			var user models.User;
+			var user models.User
 			err = store.GetDB().One("ID", organizationUser.UserID, &user)
 
-			organization.Users = append(organization.Users, user);
+			organization.Users = append(organization.Users, user)
 		}
 	}
 

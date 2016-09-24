@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/urfave/cli"
 	"github.com/jonaswouters/goclerk/models"
 	"github.com/jonaswouters/goclerk/modules/setting"
 	"github.com/jonaswouters/goclerk/modules/store"
 	cliui "github.com/mitchellh/cli"
 	"github.com/siddontang/go/bson"
+	"github.com/urfave/cli"
 )
 
 // Setup command to install the configuration and reset the database

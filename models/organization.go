@@ -11,7 +11,7 @@ type Organization struct {
 
 // OrganizationUsers links users to organizations
 type OrganizationUsers struct {
-	Model `storm:"inline"`
+	Model          `storm:"inline"`
 	OrganizationId bson.ObjectId `storm:"index"`
-	UserID bson.ObjectId `storm:"index"`
+	UserID         bson.ObjectId `storm:"index"`
 }
