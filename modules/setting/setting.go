@@ -19,12 +19,17 @@ var (
 type settings struct {
 	// Database is the database filename
 	Database string
+	// Folder to export the database to
+	ExportFolder string
+	//Folder to import data into the database
+	ImportFolder string
 }
 
 // LoadSettings load all the settings from the ini file
 func LoadSettings() {
 	s := &settings{
-		Database: "database.db",
+		Database:     "database.db",
+		ExportFolder: "export/",
 	}
 
 	Renderer = render.New(render.Options{IndentJSON: true})

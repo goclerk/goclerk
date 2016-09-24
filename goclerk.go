@@ -9,7 +9,7 @@ import (
 )
 
 // AppVersion Version of the ap
-const AppVersion = "0.0.1"
+const AppVersion = "0.0.2"
 
 func main() {
 	app := cli.NewApp()
@@ -20,6 +20,7 @@ func main() {
 	app.Commands = []cli.Command{
 		cmd.Web,
 		cmd.Setup,
+		cmd.Data,
 	}
 	app.Flags = append(app.Flags, []cli.Flag{}...)
 	app.Run(os.Args)
