@@ -3,3 +3,4 @@ goclerk.iml
 .idea
 settings.ini
 .vscode
+/database.db
