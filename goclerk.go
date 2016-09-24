@@ -5,7 +5,7 @@ import (
 
 	"github.com/jonaswouters/goclerk/cmd"
 
-	"github.com/codegangsta/cli"
+	"github.com/urfave/cli"
 )
 
 // AppVersion Version of the ap

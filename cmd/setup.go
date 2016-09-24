@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/codegangsta/cli"
+	"github.com/urfave/cli"
 	"github.com/jonaswouters/goclerk/models"
 	"github.com/jonaswouters/goclerk/modules/setting"
 	"github.com/jonaswouters/goclerk/modules/store"

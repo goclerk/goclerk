@@ -1,8 +1,8 @@
 package cmd
 
 import (
-	"github.com/codegangsta/cli"
-	"github.com/codegangsta/negroni"
+	"github.com/urfave/cli"
+	"github.com/urfave/negroni"
 
 	"github.com/jonaswouters/goclerk/routers"
 	apiv1 "github.com/jonaswouters/goclerk/routers/api/v1"
