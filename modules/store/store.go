@@ -1,6 +1,7 @@
 package store
 
 import (
+	"fmt"
 	"github.com/asdine/storm"
 	"github.com/jonaswouters/goclerk/modules/setting"
 )
@@ -20,5 +21,11 @@ func GetDB() *storm.DB {
 
 // InitializeStore creates a storm instance
 func InitializeStore() {
-	db, _ = storm.Open(setting.Settings.Database)
+	var err error
+	db, err = storm.Open(setting.Settings.Database)
+
+	if err != nil {
+		fmt.Printf("Error opening database file %s", setting.Settings.Database)
+		return
+	}
 }

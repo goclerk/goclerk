@@ -10,6 +10,7 @@ import (
 	"github.com/jonaswouters/goclerk/modules/setting"
 	"github.com/jonaswouters/goclerk/modules/store"
 	cliui "github.com/mitchellh/cli"
+	"github.com/siddontang/go/bson"
 	"github.com/urfave/cli"
 )
 
@@ -113,21 +114,30 @@ func exportInvoices(path string) {
 
 // importInvoice lets you import an invoice in a json file
 func importInvoice(ctx *cli.Context) {
+	setting.LoadSettings()
+
+	// Get the passed path
 	path := ctx.Args().First()
 	var invoice models.Invoice
 
-	err := store.GetDB().Save(&invoice)
-
-	if err != nil {
-		fmt.Print("Failed to import invoice")
-		return
-	}
-
 	// Read the file from the path provided
+	fmt.Printf("Importing file %s\n", path)
 	b, err := ioutil.ReadFile(path)
 	check(err)
 
 	// Convert bytes to string.
 	err = json.Unmarshal(b, &invoice)
 	check(err)
+
+	// Add unique ID
+	invoice.ID = bson.NewObjectId()
+
+	fmt.Printf("Invoice number: %s\n", invoice.Number)
+
+	err = store.GetDB().Save(&invoice)
+	if err != nil {
+		fmt.Print("Failed to import invoice")
+
+		check(err)
+	}
 }
