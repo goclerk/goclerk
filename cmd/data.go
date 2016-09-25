@@ -24,9 +24,15 @@ var Data = cli.Command{
 			Action: exportJson,
 		},
 		{
-			Name:   "import",
-			Usage:  "Import json data into goclerk",
-			Action: importJson,
+			Name:  "import",
+			Usage: "Import json data into goclerk",
+			Subcommands: []cli.Command{
+				{
+					Name:   "invoice",
+					Usage:  "Import an invoice",
+					Action: importInvoice,
+				},
+			},
 		},
 	},
 }
@@ -61,12 +67,14 @@ func importJson(ctx *cli.Context) {
 	setting.LoadSettings()
 }
 
+// check checks for errors and panics if there is one
 func check(e error) {
 	if e != nil {
 		panic(e)
 	}
 }
 
+// exportUsers exports all the users in the database
 func exportUsers(path string) {
 	var users []models.User
 	err := store.GetDB().All(&users)
@@ -84,6 +92,7 @@ func exportUsers(path string) {
 	}
 }
 
+// exportInvoices exports all the invoices in the database
 func exportInvoices(path string) {
 	var invoices []models.Invoice
 	err := store.GetDB().All(&invoices)
@@ -100,4 +109,25 @@ func exportInvoices(path string) {
 		err := ioutil.WriteFile(path+"invoice-"+invoice.ID.Hex()+".json", b, 0644)
 		check(err)
 	}
+}
+
+// importInvoice lets you import an invoice in a json file
+func importInvoice(ctx *cli.Context) {
+	path := ctx.Args().First()
+	var invoice models.Invoice
+
+	err := store.GetDB().Save(&invoice)
+
+	if err != nil {
+		fmt.Print("Failed to import invoice")
+		return
+	}
+
+	// Read the file from the path provided
+	b, err := ioutil.ReadFile(path)
+	check(err)
+
+	// Convert bytes to string.
+	err = json.Unmarshal(b, &invoice)
+	check(err)
 }
