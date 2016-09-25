@@ -79,7 +79,7 @@ func exportUsers(path string) {
 	for _, user := range users {
 		b, _ := json.Marshal(user)
 
-		err := ioutil.WriteFile(path+"users.json", b, 0644)
+		err := ioutil.WriteFile(path + "users-" + user.ID.Hex() + ".json", b, 0644)
 		check(err)
 	}
 }
@@ -97,7 +97,7 @@ func exportInvoices(path string) {
 		b, _ := json.Marshal(invoice)
 		// Convert bytes to string.
 
-		err := ioutil.WriteFile(path+"invoices.json", b, 0644)
+		err := ioutil.WriteFile(path + "invoice-" + invoice.ID.Hex() + ".json", b, 0644)
 		check(err)
 	}
 }
